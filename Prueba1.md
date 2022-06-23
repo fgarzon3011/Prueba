@@ -15,7 +15,16 @@ Lineamientos generales:
 
 - El nombre de usuario debe ser la letra inicial del primer nombre y su apellido Ejm: Agustin Martinez (amartinez)
 - Cada pipeline de ADF debe anteponer el nombre de usuario seguido de pipeline Ejm: amartinez_pipeline
+
+#Carga de Archivo:
 - Los archivos ingestados en ADL2 deben colocarse en RAW en una carpeta con el nombre de usuario
+```
+ %%pyspark
+df = spark.read.load('abfss://capacitacion@sesacapacitacion.dfs.core.windows.net/synapse/workspaces/synapsecapacitacion/warehouse/raw/fgarzon/clientes_correos.csv', format='csv')
+display(df.limit(10))
+```
+
+
 - Los notebooks de Spark deben ser nombrados  {usuario}_notebook
 - La tabla de resultados debe almacenarse en un POOL SQL, en el esquema default con el esquema "tbl_{usuario}"
 
