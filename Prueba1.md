@@ -206,13 +206,12 @@ dfFin.write.mode("overwrite").saveAsTable("default.tbl_Consumo_fgarzon")
 ## Scripts SQL
 Se crea  Consulta_fgarzon para consultar la tabla final del consumo solicitado en el examen
 
-"""
+
 SELECT TOP (100) [rowidcliente]
 ,[producto]
 ,[fecha_compra]
 ,[correo]
  FROM [default].[dbo].[tbl_consumo_fgarzon]
-"""
 
 ![image](https://user-images.githubusercontent.com/108036215/176330556-2e25be70-0c46-42b4-89c9-62c73148dfa4.png)
 
