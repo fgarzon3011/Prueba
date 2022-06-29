@@ -203,6 +203,8 @@ display(dfFin.limit(10))
 ##ConsumoSe almana la infromacion en un tabla para el consumo de los datos
 dfFin.write.mode("overwrite").saveAsTable("default.tbl_Consumo_fgarzon")
 ```
+![image](https://user-images.githubusercontent.com/108036215/176331327-4f1aeeb8-eeac-44e3-8503-d5cb218261c2.png)
+
 ## Scripts SQL
 Se crea  Consulta_fgarzon para consultar la tabla final del consumo solicitado en el examen
 
