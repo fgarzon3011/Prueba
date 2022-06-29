@@ -147,5 +147,29 @@ dfcorreo.createOrReplaceTempView("tbl_Mail_fg")
 ## Consulta tabla
 display(dfcorreo.limit(10))
 ```            
+## Consultas- SQL
+Para realizar estas consultas se utilizan las siguientes tablas:
 
+- tablas tbl_Cliente_fg
+- tbl_Factura_fg
+- tbl_Facturaproducto_fg
+- tbl_Producto_fg
+- tbl_Mail_fg
+**Consulta 1:**
+ Se optiene los id de cliente,producto , cantidad de productos,fecha max de factura y correo, este resultado se almace en una tabla temporal
+ **tbl_Res1_fg**
+```
+vSQL="""
+SELECT c.rowidcliente,fp.producto,count(fp.producto) as cantidad_prod,max(fp.fecha) as fecha_compra,m._c1 correo
+from tbl_Cliente_fg c
+INNER JOIN tbl_Factura_fg f ON c.rowidcliente = f.rowidcliente
+INNER JOIN tbl_Facturaproducto_fg fp ON f.rowidfactura = fp.rowidfactura
+INNER JOIN tbl_mail_fg m on m._c0 = c.rowidcliente
+group by c.rowidcliente,fp.producto,m._c1 
+order by c.rowidcliente
+"""
+dfResultado=spark.sql(vSQL)
+dfResultado.createOrReplaceTempView("tbl_Res1_fg")
+display(dfResultado.limit(10))
+```
 
