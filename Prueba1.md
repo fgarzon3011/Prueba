@@ -120,8 +120,32 @@ dfFacpro.createOrReplaceTempView("tbl_Facturaproducto_fg")
 ## Consulta tabla Cliente
 display(dfFacpro.limit(10))
 ```
-
-
-               
+### Factura Producto
+```
+#Tabla producto
+#Cargar Ruta en variable
+VPath_Pro='abfss://capacitacion@sesacapacitacion.dfs.core.windows.net/synapse/workspaces/synapsecapacitacion/warehouse/raw/fgarzon/producto_fgarzon.parquet'
+dfPro = spark.read.load(VPath_Pro, format='parquet')
+#Ver esquema de la tabla cliente
+dfPro.printSchema()
+#Crear tabla temporal
+dfPro.createOrReplaceTempView("tbl_Producto_fg")
+## Consulta tabla Cliente
+display(dfPro.limit(10))
+```
+### Correo
+```
+vPathcorreo='abfss://capacitacion@sesacapacitacion.dfs.core.windows.net/synapse/workspaces/synapsecapacitacion/warehouse/raw/fgarzon/clientes_correos.csv'
+dfcorreo = spark.read.load(vPathcorreo, format='csv')
+## ArchivoParquet
+vPathResultado = 'abfss://capacitacion@sesacapacitacion.dfs.core.windows.net/synapse/workspaces/synapsecapacitacion/warehouse/raw/fgarzon/correo.parquet'
+dfcorreo.repartition(1).write.mode("overwrite").parquet(vPathResultado)
+#Ver esquema de la tabla cliente
+dfcorreo.printSchema()
+#Crear tabla temporal
+dfcorreo.createOrReplaceTempView("tbl_Mail_fg")
+## Consulta tabla
+display(dfcorreo.limit(10))
+```            
 
 
