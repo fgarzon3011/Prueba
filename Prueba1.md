@@ -60,9 +60,13 @@ Una vez configurado  enviamos a depurar
 
 ![image](https://user-images.githubusercontent.com/108036215/176328453-4854cabf-0643-41a0-8b2b-62b4870607fd.png)
 
-##Datos - Vinculados
+##Datos - Vinculados -Azure Data Lake Storage Gen2
 
-Se valida la creacion de los archivos parquet de las tablas:
+Se valida la creacion de los archivos parquet de las tablas en el 
+
+Nombre del servicio vinculado: synapsecapacitacion-WorkspaceDefaultStorage
+Nombre de cuenta: Primary - sesacapacitacion
+
 
 - cliente_fgarzon.parquet
 - factura_fgarzon.parquet
@@ -75,7 +79,47 @@ Se valida la creacion de los archivos parquet de las tablas:
 ##Notebook
 Se crea el Notebook_fgarzon
 
+### Cliente
+```
+%%pyspark
+#Tabla cliente
+#Cargar Ruta en variable
+VPath_Cli='abfss://capacitacion@sesacapacitacion.dfs.core.windows.net/synapse/workspaces/synapsecapacitacion/warehouse/raw/fgarzon/cliente_fgarzon.parquet'
+dfCliente = spark.read.load(VPath_Cli, format='parquet')
+#Ver esquema de la tabla cliente
+dfCliente.printSchema()
+#Crear tabla temporal
+dfCliente.createOrReplaceTempView("tbl_Cliente_fg")
+## Consulta tabla Cliente
+display(dfCliente.limit(10)) 
+```
 
+### Factura
+```
+#Tabla factura
+#Cargar Ruta en variable
+VPath_Fac='abfss://capacitacion@sesacapacitacion.dfs.core.windows.net/synapse/workspaces/synapsecapacitacion/warehouse/raw/fgarzon/factura_fgarzon.parquet'
+dfFac = spark.read.load(VPath_Fac, format='parquet')
+#Ver esquema de la tabla cliente
+dfFac.printSchema()
+#Crear tabla temporal
+dfFac.createOrReplaceTempView("tbl_Factura_fg")
+## Consulta tabla Cliente
+display(dfFac.limit(10))
+```
+### Factura Producto
+```
+#Tabla facturaproducto
+#Cargar Ruta en variable
+VPath_Facpro='abfss://capacitacion@sesacapacitacion.dfs.core.windows.net/synapse/workspaces/synapsecapacitacion/warehouse/raw/fgarzon/facturaproducto_fgarzon.parquet'
+dfFacpro = spark.read.load(VPath_Facpro, format='parquet')
+#Ver esquema de la tabla cliente
+dfFacpro.printSchema()
+#Crear tabla temporal
+dfFacpro.createOrReplaceTempView("tbl_Facturaproducto_fg")
+## Consulta tabla Cliente
+display(dfFacpro.limit(10))
+```
 
 
                
