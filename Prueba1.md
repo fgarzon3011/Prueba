@@ -205,6 +205,7 @@ dfFin.write.mode("overwrite").saveAsTable("default.tbl_Consumo_fgarzon")
 ```
 ## Scripts SQL
 Se crea  Consulta_fgarzon para consultar la tabla final del consumo solicitado en el examen
+
 """
 SELECT TOP (100) [rowidcliente]
 ,[producto]
