@@ -155,7 +155,9 @@ Para realizar estas consultas se utilizan las siguientes tablas:
 - tbl_Facturaproducto_fg
 - tbl_Producto_fg
 - tbl_Mail_fg
+
 **Consulta 1:**
+
  Se optiene los id de cliente,producto , cantidad de productos,fecha max de factura y correo, este resultado se almace en una tabla temporal
  **tbl_Res1_fg**
 ```
@@ -172,4 +174,43 @@ dfResultado=spark.sql(vSQL)
 dfResultado.createOrReplaceTempView("tbl_Res1_fg")
 display(dfResultado.limit(10))
 ```
+**Consulta 2**
+Se obtiene informacion de la tabla  tbl_Res1_fg para obtener el producto el producto mas vendido yse almacena en ta tabla temporal
+**tbl_MVend_fg**
+```
+VSQL1 ="""
+select rowidcliente,max(cantidad_prod) as cantidad from tbl_Res1_fg
+group by rowidcliente
+"""
+dfMVend= spark.sql(VSQL1)
+display(dfMVend.limit(10))
+dfMVend.createOrReplaceTempView("tbl_MVend_fg")
+```
+**Consulta 2**
+Se realiza un inter join entre las tablas tbl_MVend_fg y tbl_MVend_fg para obtener la tabla consumo 
+**tbl_Consumo_fgarzon**
+```
+VSQL2 ="""
+select r.rowidcliente,r.producto,r.fecha_compra,r.correo
+from tbl_Res1_fg r
+INNER JOIN tbl_MVend_fg mv ON mv.rowidcliente = r.rowidcliente and mv.cantidad = r.cantidad_prod
+
+"""
+dfFin =spark.sql(VSQL2)
+display(dfFin.limit(10))
+##ConsumoSe almana la infromacion en un tabla para el consumo de los datos
+dfFin.write.mode("overwrite").saveAsTable("default.tbl_Consumo_fgarzon")
+```
+##Scripts SQL
+Se crea  Consulta_fgarzon para consultar la tabla final del consumo solicitado en el examen
+"""
+SELECT TOP (100) [rowidcliente]
+,[producto]
+,[fecha_compra]
+,[correo]
+ FROM [default].[dbo].[tbl_consumo_fgarzon]
+"""
+![image](https://user-images.githubusercontent.com/108036215/176330556-2e25be70-0c46-42b4-89c9-62c73148dfa4.png)
+
+
 
