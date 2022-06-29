@@ -120,7 +120,7 @@ dfFacpro.createOrReplaceTempView("tbl_Facturaproducto_fg")
 ## Consulta tabla Cliente
 display(dfFacpro.limit(10))
 ```
-### Factura Producto
+### Producto
 ```
 #Tabla producto
 #Cargar Ruta en variable
@@ -212,6 +212,7 @@ SELECT TOP (100) [rowidcliente]
 ,[correo]
  FROM [default].[dbo].[tbl_consumo_fgarzon]
 """
+
 ![image](https://user-images.githubusercontent.com/108036215/176330556-2e25be70-0c46-42b4-89c9-62c73148dfa4.png)
 
 
