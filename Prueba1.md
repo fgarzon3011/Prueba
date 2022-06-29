@@ -60,7 +60,7 @@ Una vez configurado  enviamos a depurar
 
 ![image](https://user-images.githubusercontent.com/108036215/176328453-4854cabf-0643-41a0-8b2b-62b4870607fd.png)
 
-##Datos - Vinculados -Azure Data Lake Storage Gen2
+## Datos - Vinculados -Azure Data Lake Storage Gen2
 
 Se valida la creacion de los archivos parquet de las tablas en el 
 
@@ -174,7 +174,8 @@ dfResultado=spark.sql(vSQL)
 dfResultado.createOrReplaceTempView("tbl_Res1_fg")
 display(dfResultado.limit(10))
 ```
-**Consulta 2**
+**Consulta 2:**
+
 Se obtiene informacion de la tabla  tbl_Res1_fg para obtener el producto el producto mas vendido yse almacena en ta tabla temporal
 **tbl_MVend_fg**
 ```
@@ -186,7 +187,8 @@ dfMVend= spark.sql(VSQL1)
 display(dfMVend.limit(10))
 dfMVend.createOrReplaceTempView("tbl_MVend_fg")
 ```
-**Consulta 2**
+**Consulta 3:**
+
 Se realiza un inter join entre las tablas tbl_MVend_fg y tbl_MVend_fg para obtener la tabla consumo 
 **tbl_Consumo_fgarzon**
 ```
@@ -201,7 +203,7 @@ display(dfFin.limit(10))
 ##ConsumoSe almana la infromacion en un tabla para el consumo de los datos
 dfFin.write.mode("overwrite").saveAsTable("default.tbl_Consumo_fgarzon")
 ```
-##Scripts SQL
+## Scripts SQL
 Se crea  Consulta_fgarzon para consultar la tabla final del consumo solicitado en el examen
 """
 SELECT TOP (100) [rowidcliente]
